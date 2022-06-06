@@ -6,8 +6,13 @@ import { Component, HostListener, VERSION } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  @HostListener('document:mouseover', ['$event']) onMouseOver(
+    e: KeyboardEvent
+  ) {
+    // console.log('keyCode: ', e.getModifierState('CapsLock'));
+    this.lastUppercaseState = e.getModifierState('CapsLock');
+  }
   @HostListener('keydown', ['$event']) onKeyDown(e: KeyboardEvent) {
-    console.log('keyCode: ', e.getModifierState('CapsLock'));
     this.showUppercase = e.getModifierState('CapsLock');
     this.lastUppercaseState = e.getModifierState('CapsLock');
   }
@@ -22,7 +27,6 @@ export class AppComponent {
     if (event instanceof FocusEvent) {
       this.showUppercase = false;
     }
-    console.log(this.showUppercase, event);
-    // this.showUppercase = false;
+    // console.log(this.showUppercase, event);
   }
 }
