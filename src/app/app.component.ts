@@ -1,4 +1,4 @@
-import { Component, VERSION } from '@angular/core';
+import { Component, HostListener, VERSION } from '@angular/core';
 
 @Component({
   selector: 'my-app',
@@ -6,6 +6,13 @@ import { Component, VERSION } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  @HostListener('keydown', ['$event']) onKeyDown(e) {
+    console.log('keyCode: ', e.keyCode);
+    if(e.keyCode === 20){
+      this.showUppercase = !this.showUppercase;
+    }
+  }
   name = 'Angular ' + VERSION.major;
-  value = 'Clear me';
+  value = '';
+  showUppercase = false;
 }

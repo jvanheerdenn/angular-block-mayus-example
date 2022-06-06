@@ -1,13 +1,8 @@
 <mat-form-field class="example-form-field" appearance="fill">
-  <mat-label>Clearable input</mat-label>
+  <mat-label>Data</mat-label>
   <input matInput type="text" [(ngModel)]="value" />
-  <button
-    *ngIf="value"
-    matSuffix
-    mat-icon-button
-    aria-label="Clear"
-    (click)="value = ''"
-  >
-    <mat-icon>close</mat-icon>
+  <button *ngIf="showUppercase" matSuffix mat-icon-button aria-label="Clear">
+    <mat-icon>keyboard_double_arrow_up</mat-icon>
   </button>
+  <mat-hint>Click on Block Mayus to activate the icon</mat-hint>
 </mat-form-field>
