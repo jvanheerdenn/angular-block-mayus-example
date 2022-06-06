@@ -6,13 +6,23 @@ import { Component, HostListener, VERSION } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  @HostListener('keydown', ['$event']) onKeyDown(e) {
-    console.log('keyCode: ', e.keyCode);
-    if(e.keyCode === 20){
-      this.showUppercase = !this.showUppercase;
-    }
+  @HostListener('keydown', ['$event']) onKeyDown(e: KeyboardEvent) {
+    console.log('keyCode: ', e.getModifierState('CapsLock'));
+    this.showUppercase = e.getModifierState('CapsLock');
+    this.lastUppercaseState = e.getModifierState('CapsLock');
   }
-  name = 'Angular ' + VERSION.major;
   value = '';
+  lastUppercaseState = false;
   showUppercase = false;
+
+  changeBlockMayusStatus(event: PointerEvent | FocusEvent) {
+    if (event instanceof PointerEvent) {
+      this.showUppercase = this.lastUppercaseState;
+    }
+    if (event instanceof FocusEvent) {
+      this.showUppercase = false;
+    }
+    console.log(this.showUppercase, event);
+    // this.showUppercase = false;
+  }
 }

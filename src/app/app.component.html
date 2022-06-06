@@ -1,6 +1,6 @@
 <mat-form-field class="example-form-field" appearance="fill">
   <mat-label>Data</mat-label>
-  <input matInput type="text" [(ngModel)]="value" />
+  <input matInput type="text" [(ngModel)]="value" (blur)="changeBlockMayusStatus($event)" (click)="changeBlockMayusStatus($event)"/>
   <button *ngIf="showUppercase" matSuffix mat-icon-button aria-label="Clear">
     <mat-icon>keyboard_double_arrow_up</mat-icon>
   </button>
