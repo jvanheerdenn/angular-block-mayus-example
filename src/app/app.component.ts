@@ -12,10 +12,39 @@ export class AppComponent {
     // console.log('keyCode: ', e.getModifierState('CapsLock'));
     this.lastUppercaseState = e.getModifierState('CapsLock');
   }
+
   @HostListener('keydown', ['$event']) onKeyDown(e: KeyboardEvent) {
-    this.showUppercase = e.getModifierState('CapsLock');
-    this.lastUppercaseState = e.getModifierState('CapsLock');
+    if (e.key === 'CapsLock') {
+      this.showUppercase = e.getModifierState('CapsLock');
+      this.lastUppercaseState = e.getModifierState('CapsLock');
+      return;
+    }
+
+    if (e.key === 'Shift' && e.getModifierState('CapsLock')) {
+      this.showUppercase = false;
+      this.lastUppercaseState = false;
+      return;
+    }
+
+    if (e.key === 'Shift') {
+      this.showUppercase = e.getModifierState('Shift');
+      this.lastUppercaseState = e.getModifierState('Shift');
+    }
   }
+
+  @HostListener('keyup', ['$event']) onKeyUp(e: KeyboardEvent) {
+    if (e.key === 'Shift' && e.getModifierState('CapsLock')) {
+      this.showUppercase = true;
+      this.lastUppercaseState = true;
+      return;
+    }
+
+    if (e.key === 'Shift') {
+      this.showUppercase = e.shiftKey;
+      this.lastUppercaseState = e.shiftKey;
+    }
+  }
+
   value = '';
   lastUppercaseState = false;
   showUppercase = false;
